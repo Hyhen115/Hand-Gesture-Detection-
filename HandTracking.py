@@ -8,8 +8,10 @@ cap = cv2.VideoCapture(1)
 mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
-handLmsStyle = mpDraw.DrawingSpec(color=(0, 0, 255), thickness=10)
-handConStyle = mpDraw.DrawingSpec(color=(0, 255, 0), thickness=5)
+# hand fingermarks
+handLmsStyle = mpDraw.DrawingSpec(color=(79, 78, 73), thickness=5,circle_radius=10)
+# hand lines
+handConStyle = mpDraw.DrawingSpec(color=(158, 155, 142), thickness=5)
 pTime = 0
 cTime = 0
 
@@ -36,11 +38,11 @@ while True:
                     # y coordinates
                     yPos = int(lm.y * imgHeight)
                     # put coordinates besides the circles
-                    cv2.putText(img, str(i), (xPos-25, yPos+5), cv2.FONT_HERSHEY_SIMPLEX, 0.4,(255,255,255),2)
+                    cv2.putText(img, str(i), (xPos-50, yPos+5), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(255,255,255),1)
                     # when is the fingertip points
                     if i == 4 or i == 8 or i == 12 or i == 16 or i == 20:
                         # bigger circle and color
-                        cv2.circle(img, (xPos, yPos), 15, (0, 242, 255),cv2.FILLED)
+                        cv2.circle(img, (xPos, yPos), 15, (54, 53, 50),cv2.FILLED)
                     # print the point position
                     print(i, xPos, yPos)
 
