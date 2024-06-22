@@ -1,8 +1,7 @@
-from unittest import result
-
 import cv2
 import mediapipe as mp
 import time
+import math
 
 cap = cv2.VideoCapture(1)
 mpHands = mp.solutions.hands
@@ -25,7 +24,7 @@ while True:
         # print(results.multi_hand_landmarks)
         imgHeight = img.shape[0]
         imgWidth = img.shape[1]
-        # if have hands
+        # have hands
         if result.multi_hand_landmarks:
             # for each hand
             for handLms in result.multi_hand_landmarks:
