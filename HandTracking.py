@@ -30,20 +30,69 @@ while True:
             for handLms in result.multi_hand_landmarks:
                 # draw all connections and dots out
                 mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS, handLmsStyle, handConStyle)
+
+                xAvg = int(0)
+                yAvg = int(0)
+                zAvg = int(0)
+
+                count = int(0)
+
+                xThumb = int(0)
+                yThumb = int(0)
+                zThumb = int(0)
+
                 # loop through all fingermarks
                 for i, lm in enumerate(handLms.landmark):
                     # x coordinates
                     xPos = int(lm.x * imgWidth)
                     # y coordinates
                     yPos = int(lm.y * imgHeight)
+                    # z coordinates
+                    zPos = int(lm.z * imgWidth)
                     # put coordinates besides the circles
                     cv2.putText(img, str(i), (xPos-50, yPos+5), cv2.FONT_HERSHEY_SIMPLEX, 0.6,(255,255,255),1)
                     # when is the fingertip points
                     if i == 4 or i == 8 or i == 12 or i == 16 or i == 20:
                         # bigger circle and color
                         cv2.circle(img, (xPos, yPos), 15, (54, 53, 50),cv2.FILLED)
+
+                    if i == 8 or i == 12 or i == 16 or i == 20:
+                        # calculate avg pt
+                        xAvg += xPos
+                        yAvg += yPos
+                        zAvg += zPos
+                        count += 1
+
+                    if i == 4:
+                        xThumb += xPos
+                        yThumb += yPos
+                        zThumb += zPos
+
+                    if i == 20:
+                        # last loop
+                        # calculate avg pt
+                        xAvg = xAvg / count
+                        yAvg = yAvg / count
+                        zAvg = zAvg / count
+
+                        # show the point
+                        cv2.circle(img,(int(xAvg), int(yAvg)), 15, (84, 221, 236),cv2.FILLED)
+
+                        # show the point and the thumb
+                        cv2.line(img,(int(xAvg),int(yAvg)),(int(xThumb), int(yThumb)),(185,185,185),2)
+                        # calculate length
+                        length = math.sqrt((xAvg-xThumb)**2 + (yAvg-yThumb)**2 + (zAvg-zThumb)**2)
+                        # show the length
+                        cv2.putText(img,str(int(length)),(int((xAvg+xThumb)/2),int((yAvg+yThumb)/2)),cv2.FONT_HERSHEY_SIMPLEX, 0.6,(255,255,255),1)
+                        # print the length
+                        print(int(length))
+                        
+
+
                     # print the point position
                     print(i, xPos, yPos)
+
+
 
         # set fps
         cTime = time.time()
