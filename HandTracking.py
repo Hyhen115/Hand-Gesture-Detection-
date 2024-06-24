@@ -116,7 +116,7 @@ while True:
                         angle = calculate_angle(xAvg, yAvg, zAvg, xMid, yMid, zMid, xThumb, yThumb, zThumb)*180/math.pi
                         print(angle)
 
-                        cv2.putText(img,str(int(angle)),(200,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
+                        cv2.putText(img,str(int(angle)),(xMid,yMid-50),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),2)
 
                     # print the point position
                     print(i, xPos, yPos)
