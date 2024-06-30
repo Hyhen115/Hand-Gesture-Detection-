@@ -5,7 +5,7 @@ import numpy as np
 def empty(v):
     pass
 
-img = cv2.imread('XiWinnie.jpg')
+img = cv2.imread('colourDet.jpg')
 img = cv2.resize(img,(0,0),fx=0.5,fy=0.5)
 
 # add a window to control the hsv stats
