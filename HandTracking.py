@@ -12,7 +12,7 @@ def calculate_angle(x1, y1, z1, x2, y2, z2, x3, y3, z3):
     return np.arccos(np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2)))
 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
